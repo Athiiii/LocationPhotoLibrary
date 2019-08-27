@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LocationPhotoManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdressSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="nvarchar(max)" />
+          <Property Name="PlaceNr" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="AssignedPerson" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GpsWidth" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="GpsLength" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="East" Type="bit" Nullable="false" />
+          <Property Name="North" Type="bit" Nullable="false" />
+          <Property Name="Building" Type="nvarchar(max)" />
+          <Property Name="Owner_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OwnerSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="bit" Nullable="false" />
+          <Property Name="AssignedPerson" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PhotoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GpsWidth" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="GpsLength" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="East" Type="bit" Nullable="false" />
+          <Property Name="North" Type="bit" Nullable="false" />
+          <Property Name="Filename" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Width" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Height" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Datumimport" Type="datetime" Nullable="false" />
+          <Property Name="IsMainseat" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Adress_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AdressPhoto">
+          <End Role="AdressSet" Type="Self.AdressSet" Multiplicity="1" />
+          <End Role="PhotoSet" Type="Self.PhotoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdressSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhotoSet">
+              <PropertyRef Name="Adress_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BesitzerAdresse">
+          <End Role="OwnerSet" Type="Self.OwnerSet" Multiplicity="1" />
+          <End Role="AdressSet" Type="Self.AdressSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OwnerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdressSet">
+              <PropertyRef Name="Owner_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LocationPhotoManagerModelStoreContainer">
+          <EntitySet Name="AdressSet" EntityType="Self.AdressSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OwnerSet" EntityType="Self.OwnerSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhotoSet" EntityType="Self.PhotoSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AdressPhoto" Association="Self.FK_AdressPhoto">
+            <End Role="AdressSet" EntitySet="AdressSet" />
+            <End Role="PhotoSet" EntitySet="PhotoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BesitzerAdresse" Association="Self.FK_BesitzerAdresse">
+            <End Role="OwnerSet" EntitySet="OwnerSet" />
+            <End Role="AdressSet" EntitySet="AdressSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LocationPhotoManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LocationPhotoManagerEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="AdressSet" EntityType="LocationPhotoManagerModel.AdressSet" />
+          <EntitySet Name="OwnerSet" EntityType="LocationPhotoManagerModel.OwnerSet" />
+          <EntitySet Name="PhotoSet" EntityType="LocationPhotoManagerModel.PhotoSet" />
+          <AssociationSet Name="FK_AdressPhoto" Association="LocationPhotoManagerModel.FK_AdressPhoto">
+            <End Role="AdressSet" EntitySet="AdressSet" />
+            <End Role="PhotoSet" EntitySet="PhotoSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BesitzerAdresse" Association="LocationPhotoManagerModel.FK_BesitzerAdresse">
+            <End Role="OwnerSet" EntitySet="OwnerSet" />
+            <End Role="AdressSet" EntitySet="AdressSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AdressSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceNr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AssignedPerson" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GpsWidth" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="GpsLength" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="East" Type="Boolean" Nullable="false" />
+          <Property Name="North" Type="Boolean" Nullable="false" />
+          <Property Name="Building" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Owner_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PhotoSet" Relationship="LocationPhotoManagerModel.FK_AdressPhoto" FromRole="AdressSet" ToRole="PhotoSet" />
+          <NavigationProperty Name="OwnerSet" Relationship="LocationPhotoManagerModel.FK_BesitzerAdresse" FromRole="AdressSet" ToRole="OwnerSet" />
+        </EntityType>
+        <EntityType Name="OwnerSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company" Type="Boolean" Nullable="false" />
+          <Property Name="AssignedPerson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdressSet" Relationship="LocationPhotoManagerModel.FK_BesitzerAdresse" FromRole="OwnerSet" ToRole="AdressSet" />
+        </EntityType>
+        <EntityType Name="PhotoSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GpsWidth" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="GpsLength" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="East" Type="Boolean" Nullable="false" />
+          <Property Name="North" Type="Boolean" Nullable="false" />
+          <Property Name="Filename" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Width" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Height" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Datumimport" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsMainseat" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Adress_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AdressSet" Relationship="LocationPhotoManagerModel.FK_AdressPhoto" FromRole="PhotoSet" ToRole="AdressSet" />
+        </EntityType>
+        <Association Name="FK_AdressPhoto">
+          <End Type="LocationPhotoManagerModel.AdressSet" Role="AdressSet" Multiplicity="1" />
+          <End Type="LocationPhotoManagerModel.PhotoSet" Role="PhotoSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdressSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhotoSet">
+              <PropertyRef Name="Adress_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BesitzerAdresse">
+          <End Type="LocationPhotoManagerModel.OwnerSet" Role="OwnerSet" Multiplicity="1" />
+          <End Type="LocationPhotoManagerModel.AdressSet" Role="AdressSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OwnerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdressSet">
+              <PropertyRef Name="Owner_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LocationPhotoManagerModelStoreContainer" CdmEntityContainer="LocationPhotoManagerEntities" >
+          <EntitySetMapping Name="AdressSet">
+            <EntityTypeMapping TypeName="LocationPhotoManagerModel.AdressSet">
+              <MappingFragment StoreEntitySet="AdressSet">
+                <ScalarProperty Name="Owner_Id" ColumnName="Owner_Id" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="North" ColumnName="North" />
+                <ScalarProperty Name="East" ColumnName="East" />
+                <ScalarProperty Name="GpsLength" ColumnName="GpsLength" />
+                <ScalarProperty Name="GpsWidth" ColumnName="GpsWidth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="AssignedPerson" ColumnName="AssignedPerson" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PlaceNr" ColumnName="PlaceNr" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OwnerSet">
+            <EntityTypeMapping TypeName="LocationPhotoManagerModel.OwnerSet">
+              <MappingFragment StoreEntitySet="OwnerSet">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="AssignedPerson" ColumnName="AssignedPerson" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhotoSet">
+            <EntityTypeMapping TypeName="LocationPhotoManagerModel.PhotoSet">
+              <MappingFragment StoreEntitySet="PhotoSet">
+                <ScalarProperty Name="Adress_Id" ColumnName="Adress_Id" />
+                <ScalarProperty Name="IsMainseat" ColumnName="IsMainseat" />
+                <ScalarProperty Name="Datumimport" ColumnName="Datumimport" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="North" ColumnName="North" />
+                <ScalarProperty Name="East" ColumnName="East" />
+                <ScalarProperty Name="GpsLength" ColumnName="GpsLength" />
+                <ScalarProperty Name="GpsWidth" ColumnName="GpsWidth" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

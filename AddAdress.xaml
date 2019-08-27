@@ -1,0 +1,69 @@
+﻿<Window x:Class="LocationPhotoLibrary.AddAdress"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LocationPhotoLibrary"
+        mc:Ignorable="d"
+        Title="AddAdress" Height="450" Width="500">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Add Address" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="30" Margin="15,10,0,0"/>
+            <Label FontSize="13" VerticalAlignment="Top" Content="Street" Grid.Column="0" Grid.Row="1" Margin="16,0,0,19"/>
+            <TextBox FontSize="16" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25"/>
+            <Label FontSize="13" VerticalAlignment="Top" Content="Place" Grid.Column="0" Grid.Row="2" Margin="16,0,0,19"/>
+            <TextBox FontSize="16" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25"/>
+            <Label FontSize="13" VerticalAlignment="Top" Content="City" Grid.Column="0" Grid.Row="3" Margin="16,0,0,19"/>
+            <TextBox FontSize="16" Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25"/>
+            <Label FontSize="13" VerticalAlignment="Top" Content="Building" Grid.Column="0" Grid.Row="4" Margin="16,0,0,19"/>
+            <TextBox FontSize="16" Grid.Column="0" Grid.Row="4" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25"/>
+
+            <Label  Grid.Column="1" Grid.Row="1" FontSize="13" VerticalAlignment="Top" Content="Assigned Person" Margin="16,0,0,19"/>
+            <TextBox FontSize="16" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Margin="20,0,20,0" Height="25"/>
+            <Label  Grid.Column="1" Grid.Row="2" FontSize="13" VerticalAlignment="Top" Content="Phone" Margin="16,0,0,19"/>
+            <TextBox FontSize="16" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="20,0,20,0" Height="25"/>
+            <Label  Grid.Column="1" Grid.Row="3" FontSize="13" VerticalAlignment="Top" Content="Email" Margin="16,0,0,19"/>
+            <TextBox FontSize="16" Grid.Column="1" Grid.Row="3" VerticalAlignment="Bottom" Margin="20,0,20,0" Height="25"/>
+            <Grid Grid.Column="1" Grid.Row="4" Margin="0,0,20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label  Grid.Column="0" FontSize="13" VerticalAlignment="Top" Content="Gps Width" Margin="17,0,0,19"/>
+                <TextBox FontSize="16" Grid.Column="0" VerticalAlignment="Bottom" Margin="20,0,0,0" Height="25"/>
+                <Label  Grid.Column="1" FontSize="13" VerticalAlignment="Top" Content="Gps Length" Margin="17,0,0,0"/>
+                <TextBox FontSize="16" Grid.Column="1" VerticalAlignment="Bottom" Margin="20,0,0,0" HorizontalAlignment="Stretch" Height="25"/>
+            </Grid>
+            <Button Click="AddPhoto" Content="Add Photo" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Padding="10,3,10,3" Margin="20,15,0,0"/>
+        </Grid>
+        <Button Content="Create" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Padding="10,3,10,3" Margin="0,5,10,5"/>
+        <ScrollViewer Margin="10,10,10,0">
+            <Grid Name="Photos">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+            </Grid>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
